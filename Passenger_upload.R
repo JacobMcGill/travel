@@ -1,8 +1,8 @@
 library(tidyverse)
 library(Hmisc)
 #Importing files
-setwd("C://Users/jacob/OneDrive/Documents/travel")
-airport_files = c("WDI.csv","RRDC.csv", "TI.csv","STI.csv","SF.csv", "SD.csv", "SLC.csv", "PHX.csv", 
+setwd("C://Users/jacob/OneDrive/Documents/travel/Passengers")
+passenger_files = c("WDI.csv","RRDC.csv", "TI.csv","STI.csv","SF.csv", "SD.csv", "SLC.csv", "PHX.csv", 
                   "PHI.csv", "ORL.csv", "NLI.csv", "LGA.csv", "JFK.csv", "NAS.csv",
                   "MIA.csv", "LA.csv", "LV.csv", "ATL.csv", "FrtLd_Holly.csv", "CHI_Hare.csv", "CHI_Midway.csv", 
                   "ATX.csv", "BA_WA.csv", "LI.csv", 
@@ -10,22 +10,22 @@ airport_files = c("WDI.csv","RRDC.csv", "TI.csv","STI.csv","SF.csv", "SD.csv", "
                   "DMWC.csv", "GBIH.csv", "MSPI.csv"
                   
 )
-airport_data = read_csv(airport_files, id = "file", skip = 1) %>%
+passenger_data = read_csv(passenger_files, id = "file", skip = 1) %>%
   mutate(airport_origin = substr(file, 1, nchar(file) - 4),
          Year = as.factor(Year),
          ) %>%
   rename(Domestic_Passengers = DOMESTIC,
          International_Passengers = INTERNATIONAL,
          Total_Passenger = TOTAL)
-airport_data
+passenger_data
 #Note: The dataframe has both monthly values and total values for each year, so I qill seperate them
-airport_total = airport_data %>%
+passenger_total = passenger_data %>%
   filter(Month == "TOTAL") %>%
   select(!Month)
-airport_month = airport_data %>%
+passenger_month = passenger_data %>%
   filter(Month != "TOTAL") %>%
   mutate(Month = as.factor(Month))
-airport_month
+passenger_month
 
 
 
